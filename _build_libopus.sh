@@ -21,7 +21,10 @@ function build_libopus {
   cd ${src_root}/libopus
   cp ${patch_root}/libopus/*.mk jni/ >> ${build_log} 2>&1 || die "Couldn't apply NDK build bits!"
 
-  NDK_PROJECT_PATH=. ${NDK}/ndk-build >> ${build_log} 2>&1 || dir "Couldn't build libopus!"
+  NDK_PROJECT_PATH=. ${NDK}/ndk-build ${MAKEOPTS} >> ${build_log} 2>&1 || die "Couldn't build libopus!"
+
+  # generate pkgconfig file
+  sed "s#@PREFIX@#${dist_root}#g" < ${patch_root}/libopus/opus.pc.in > ${src_root}/libopus/opus.pc || die "Couldn't generate pkgconfig file!"
 
   cp ${src_root}/libopus/libs/armeabi/libopus.so ${dist_lib_root}/
   # copy the headers
@@ -30,3 +33,6 @@ function build_libopus {
 
   cd ${top_root}
 }
+
+
+# vim:set ai et ts=2 sw=2 sts=2 fenc=utf-8:
