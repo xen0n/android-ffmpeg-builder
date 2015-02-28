@@ -1,4 +1,8 @@
 function build_libopus {
+  if [ "${WITH_LIBOPUS}" != "1" ]; then
+    return
+  fi
+
   echo "Building libopus for android ..."
 
   # download libopus
