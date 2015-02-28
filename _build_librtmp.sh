@@ -1,4 +1,8 @@
 function build_librtmp {
+  if [ "${WITH_LIBRTMP}" != "1" ]; then
+    return
+  fi
+
   echo "Building librtmp for android ..."
 
   test -d ${src_root}/rtmpdump || \
@@ -32,3 +36,6 @@ function build_librtmp {
 
   cd ${top_root}
 }
+
+
+# vim:set ai et ts=2 sw=2 sts=2 fenc=utf-8:

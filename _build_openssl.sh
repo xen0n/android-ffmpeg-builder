@@ -1,4 +1,8 @@
 function build_openssl {
+  if [ "${WITH_OPENSSL}" != "1" ]; then
+    return
+  fi
+
   echo "Building openssl-android ..."
 
   test -d ${src_root}/openssl-android || \
@@ -17,3 +21,6 @@ function build_openssl {
 
   cd ${top_root}
 }
+
+
+# vim:set ai et ts=2 sw=2 sts=2 fenc=utf-8:
