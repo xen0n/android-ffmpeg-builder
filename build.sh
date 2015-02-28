@@ -92,6 +92,10 @@ function initialize {
 #-- main
 set -e  # fail hard on any error
 
+export WITH_OPENSSL=0
+export WITH_LIBRTMP=0
+export WITH_LIBOPUS=1
+
 initialize
 build_openssl
 build_librtmp
