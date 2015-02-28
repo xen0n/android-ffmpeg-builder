@@ -2,10 +2,11 @@ function build_ffmpeg {
   echo "Building ffmpeg for android ..."
 
   # download ffmpeg
-  ffmpeg_archive=${src_root}/ffmpeg-snapshot.tar.bz2
+  ffmpeg_version=2.5.4
+  ffmpeg_archive=${src_root}/ffmpeg-${ffmpeg_version}.tar.bz2
   if [ ! -f "${ffmpeg_archive}" ]; then
     test -x "$(which curl)" || die "You must install curl!"
-    curl -s http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2 -o ${ffmpeg_archive} >> ${build_log} 2>&1 || \
+    curl -s http://ffmpeg.org/releases/ffmpeg-${version}.tar.bz2 -o ${ffmpeg_archive} >> ${build_log} 2>&1 || \
       die "Couldn't download ffmpeg sources!"
   fi
 
@@ -13,6 +14,9 @@ function build_ffmpeg {
   if [ ! -d "${src_root}/ffmpeg" ]; then
     cd ${src_root}
     tar xvfj ${ffmpeg_archive} >> ${build_log} 2>&1 || die "Couldn't extract ffmpeg sources!"
+    if [ ${ffmpeg_version} != "snapshot" ]; then
+      mv ffmpeg-${version} ffmpeg
+    fi
   fi
 
   cd ${src_root}/ffmpeg
